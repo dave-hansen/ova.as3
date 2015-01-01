@@ -690,7 +690,7 @@ package org.openvideoads.regions.view {
 		protected function assessFlashMediaScaling():void {
 			if(scalable) {
 				if(_activeFlashMedia != null && _contentLoader != null) {
-					doLog("enforceRecommendedSizing = " + _activeFlashMedia.enforceRecommendedSizing + ", scale = " + _activeFlashMedia.scale + " recommendedWidth = " + _activeFlashMedia.recommendedWidth + " recommendedHeight = " + _activeFlashMedia.recommendedHeight, Debuggable.DEBUG_VPAID);
+					CONFIG::debugging { doLog("enforceRecommendedSizing = " + _activeFlashMedia.enforceRecommendedSizing + ", scale = " + _activeFlashMedia.scale + " recommendedWidth = " + _activeFlashMedia.recommendedWidth + " recommendedHeight = " + _activeFlashMedia.recommendedHeight, Debuggable.DEBUG_VPAID); };
 					if(_activeFlashMedia.loaded) {
 						if(_activeFlashMedia.scale) {
 							if(_activeFlashMedia.enforceRecommendedSizing) {
