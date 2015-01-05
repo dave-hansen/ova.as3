@@ -17,17 +17,17 @@
  *    along with the framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.openvideoads.vast.analytics {
-	import com.google.analytics.AnalyticsTracker;
-	import com.google.analytics.GATracker;
+//	import com.google.analytics.AnalyticsTracker;
+//	import com.google.analytics.GATracker;
 	
 	import flash.display.DisplayObject;
 	
 	import org.openvideoads.base.Debuggable;
 	import org.openvideoads.vast.server.request.AdServerRequest;
-	import org.openvideoads.util.NetworkResource;
+//	import org.openvideoads.util.NetworkResource;
 	import org.openvideoads.util.StringUtils;
 	import org.openvideoads.vast.config.groupings.analytics.google.GoogleAnalyticsConfigGroup;
-	import org.openvideoads.vast.config.groupings.analytics.google.GoogleAnalyticsTrackingGroup;
+//	import org.openvideoads.vast.config.groupings.analytics.google.GoogleAnalyticsTrackingGroup;
 	import org.openvideoads.vast.model.CompanionAd;
 	import org.openvideoads.vast.model.LinearVideoAd;
 	import org.openvideoads.vast.model.MediaFile;
@@ -37,8 +37,8 @@ package org.openvideoads.vast.analytics {
 	
 	public class GoogleAnalyticsProcessor extends Debuggable implements AnalyticsInterface {
 		
-        protected var _gaOVATracker:AnalyticsTracker = null;
-        protected var _gaCustomTracker:AnalyticsTracker = null;
+//        protected var _gaOVATracker:AnalyticsTracker = null;
+//        protected var _gaCustomTracker:AnalyticsTracker = null;
         protected var _config:GoogleAnalyticsConfigGroup = null;
         protected var _displayObject:DisplayObject = null;
 		
@@ -47,13 +47,15 @@ package org.openvideoads.vast.analytics {
 		}
 
 		public function initialise(config:GoogleAnalyticsConfigGroup):void {
+			CONFIG::debugging { doLog("Overriding GoogleAnalyticsProcessor.initialise()"); }
+			/*
 			_config = config;
 			if(_config != null) {
 				if(_config.enabled) {
 					try {
 						if(_config.ova.trackingEnabled && _config.ova.displayObject != null) {
 							CONFIG::debugging { doLog("Google Analytics OVA Tracker instantiated - tracking to account " + _config.ova.accountId, Debuggable.DEBUG_ANALYTICS); }
-				            _gaOVATracker = new GATracker(_config.ova.displayObject, config.ova.accountId, "AS3", false);							
+				            _gaOVATracker = new GATracker(_config.ova.displayObject, config.ova.accountId, "AS3", false);
 						}
 						else {
 							CONFIG::debugging { doLog("Google Analytics OVA Tracker has been disabled - ova.trackingEnabled='" + _config.ova.trackingEnabled + "'" + ((_config.ova.displayObject == null) ? " displayObject is null" : ""), Debuggable.DEBUG_ANALYTICS); }
@@ -77,6 +79,7 @@ package org.openvideoads.vast.analytics {
 					CONFIG::debugging { doLog("Google Analytics Tracker has been disabled completely", Debuggable.DEBUG_ANALYTICS); }
 				}
 			}
+			*/
 		}
 		
 		// Helper methods
@@ -161,6 +164,8 @@ package org.openvideoads.vast.analytics {
         }
 	
 		protected function fireCalls(element:String, type:String, params:String, adTag:String=null):void {
+			CONFIG::debugging { doLog("Overriding GoogleAnalyticsProcessor.fireCalls()"); }
+			/*
 			var path:String = null;
 			var config:GoogleAnalyticsTrackingGroup = _config.ova;
 			var accountType:String = "OVA";
@@ -170,7 +175,7 @@ package org.openvideoads.vast.analytics {
 					path = config.getPath(element, type);
 					if(path != null) {
 						try {
-							CONFIG::debugging { doLog("Firing " + element + " '" + type + "' to Google Analytics " + accountType + " account " + config.accountId + " (" + path + ")", Debuggable.DEBUG_ANALYTICS);	}			
+							CONFIG::debugging { doLog("Firing " + element + " '" + type + "' to Google Analytics " + accountType + " account " + config.accountId + " (" + path + ")", Debuggable.DEBUG_ANALYTICS);	}
 							if(adTag != null) {
 								var finalTrackingURL:String = null;
 								if(config.addParamsToTrackingURL) {
@@ -206,6 +211,7 @@ package org.openvideoads.vast.analytics {
 				accountType = "CUSTOM";
 				tracker = _gaCustomTracker;
 			}
+			*/
 		}
 		
 		// Tracking methods
