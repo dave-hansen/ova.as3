@@ -1738,8 +1738,15 @@ package org.openvideoads.vast {
 			if(overlayView.activeAdSlot != null) {
 				var adSlot:AdSlot = overlayView.activeAdSlot;
 				var nonLinearVideoAd:NonLinearVideoAd = adSlot.getNonLinearVideoAd();
-				nonLinearVideoAd.clicked();
-				var event:NonLinearAdDisplayEvent = 
+				var linearVideoAd:LinearVideoAd = adSlot.getLinearVideoAd();
+
+				if (linearVideoAd != null) {
+					linearVideoAd.clicked();
+				} else if (nonLinearVideoAd != null) {
+					nonLinearVideoAd.clicked();
+				}
+
+				var event:NonLinearAdDisplayEvent =
 						new OverlayAdDisplayEvent(
 								OverlayAdDisplayEvent.CLICKED, 
 								nonLinearVideoAd, 
