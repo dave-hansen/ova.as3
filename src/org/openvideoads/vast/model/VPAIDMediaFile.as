@@ -771,8 +771,11 @@ package org.openvideoads.vast.model {
 				// Event data for handling the click event comes in the form
 				// var data:Object = { "playerHandles": true, "url": "http://destination_page" };
 				if(event.data != undefined && event.data != null) {
+                    if (event.data.hasOwnProperty("player_handles")) {
+                        event.data.playerHandles = event.data.player_handles;
+                    }
 					if(event.data.playerHandles && !StringUtils.isEmpty(event.data.url)) {
-						CONFIG::debugging { doLog("VPAIDMediaFile::VPAID.AdClickThru event received - VPAID ad has requested browser to open click through URL " + event.data.url, Debuggable.DEBUG_VPAID);	}	
+						CONFIG::debugging { doLog("VPAIDMediaFile::VPAID.AdClickThru event received - VPAID ad has requested browser to open click through URL " + event.data.url, Debuggable.DEBUG_VPAID);	}
 						PopupWindow.openWindow(event.data.url, "_blank");
 					}
 					else {
