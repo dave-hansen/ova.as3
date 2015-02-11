@@ -1753,26 +1753,15 @@ package org.openvideoads.vast {
 					linearVideoAd.clicked();
 					dispatchEvent(event);
 
-					// XXX untested
 					CONFIG::callbacks {
 						fireAPICall("onLinearAdClicked", adSlot.videoAd.toJSObject());
 					}
 
-					// XXX untested
 					if (_analyticsProcessor != null) {
 						_analyticsProcessor.fireAdClickTracking(AnalyticsProcessor.NON_LINEAR, adSlot, linearVideoAd, getAdditionalMetricsParams());
 					}
 				} else if(nonLinearVideoAd != null) {
 					nonLinearVideoAd.clicked();
-
-					var event:NonLinearAdDisplayEvent =
-						new OverlayAdDisplayEvent(
-								OverlayAdDisplayEvent.CLICKED,
-								nonLinearVideoAd,
-								adSlot,
-								null,
-								originalMouseEvent
-						);
 
 					if (adSlot.hasLinearAd()) {
 						CONFIG::debugging {
