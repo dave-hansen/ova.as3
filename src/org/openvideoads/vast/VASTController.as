@@ -1763,14 +1763,11 @@ package org.openvideoads.vast {
 				} else if(nonLinearVideoAd != null) {
 					nonLinearVideoAd.clicked();
 
-					if (adSlot.hasLinearAd()) {
-						CONFIG::debugging {
-							doLog("Non-linear click is triggering the start of a 'click-to-play' linear ad attached to the overlay - forcing overlay to hide", Debuggable.DEBUG_CLICKTHROUGH_EVENTS);
-						}
-						overlayView.hide();
-
-						dispatchEvent(event);
-					}
+					if(adSlot.hasLinearAd()) {
+                        CONFIG::debugging { doLog("Non-linear click is triggering the start of a 'click-to-play' linear ad attached to the overlay - forcing overlay to hide", Debuggable.DEBUG_CLICKTHROUGH_EVENTS); }
+                        overlayView.hide();
+                        dispatchEvent(event);
+                    }
 					else {
 						if (nonLinearVideoAd.hasClickThroughs() && (nonLinearVideoAd.isInteractive() == false)) {
 							var clickThroughURL:String = nonLinearVideoAd.firstClickThrough();
