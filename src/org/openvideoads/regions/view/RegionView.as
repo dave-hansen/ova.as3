@@ -21,7 +21,8 @@ package org.openvideoads.regions.view {
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
-	import flash.net.URLRequest;
+    import flash.net.URLRequest;
+    import flash.events.UncaughtErrorEvent;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 	import flash.system.Security;
@@ -846,6 +847,12 @@ package org.openvideoads.regions.view {
 					CONFIG::debugging { doLog("Flash content masked with a rectangle " + width + "x" + height, Debuggable.DEBUG_VPAID); }
 
 					onFlashContentLoaded();
+				}
+			 );
+
+			 _contentLoader.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,
+			    function(event:Event):void {
+					CONFIG::debugging { doLog("Unhandled exception..."); }
 				}
 			 );
 			 _contentLoader.mouseChildren = !blockMouseActions;
