@@ -1740,42 +1740,69 @@ package org.openvideoads.vast {
 				var nonLinearVideoAd:NonLinearVideoAd = adSlot.getNonLinearVideoAd();
 				var linearVideoAd:LinearVideoAd = adSlot.getLinearVideoAd();
 
+                var event:NonLinearAdDisplayEvent =
+						new OverlayAdDisplayEvent(
+								OverlayAdDisplayEvent.CLICKED,
+								nonLinearVideoAd,
+								adSlot,
+								null,
+								originalMouseEvent
+                );
+
 				if (linearVideoAd != null) {
 					linearVideoAd.clicked();
-				} else if (nonLinearVideoAd != null) {
-					nonLinearVideoAd.clicked();
-				}
+					dispatchEvent(event);
 
-				var event:NonLinearAdDisplayEvent =
+					// XXX untested
+					CONFIG::callbacks {
+						fireAPICall("onLinearAdClicked", adSlot.videoAd.toJSObject());
+					}
+
+					// XXX untested
+					if (_analyticsProcessor != null) {
+						_analyticsProcessor.fireAdClickTracking(AnalyticsProcessor.NON_LINEAR, adSlot, linearVideoAd, getAdditionalMetricsParams());
+					}
+				} else if(nonLinearVideoAd != null) {
+					nonLinearVideoAd.clicked();
+
+					var event:NonLinearAdDisplayEvent =
 						new OverlayAdDisplayEvent(
-								OverlayAdDisplayEvent.CLICKED, 
-								nonLinearVideoAd, 
+								OverlayAdDisplayEvent.CLICKED,
+								nonLinearVideoAd,
 								adSlot,
 								null,
 								originalMouseEvent
 						);
 
-				if(adSlot.hasLinearAd()) {
-					CONFIG::debugging { doLog("Non-linear click is triggering the start of a 'click-to-play' linear ad attached to the overlay - forcing overlay to hide", Debuggable.DEBUG_CLICKTHROUGH_EVENTS); }
-					overlayView.hide();
-					dispatchEvent(event);					
-				}
-				else {
-					if(nonLinearVideoAd.hasClickThroughs() && (nonLinearVideoAd.isInteractive() == false)) {
-						var clickThroughURL:String = nonLinearVideoAd.firstClickThrough();
-						CONFIG::debugging { doLog("Non-linear click is triggering a click-through to " + clickThroughURL , Debuggable.DEBUG_CLICKTHROUGH_EVENTS); }
-						PopupWindow.openWindow(clickThroughURL, _config.adsConfig.clickSignConfig.target);
+					if (adSlot.hasLinearAd()) {
+						CONFIG::debugging {
+							doLog("Non-linear click is triggering the start of a 'click-to-play' linear ad attached to the overlay - forcing overlay to hide", Debuggable.DEBUG_CLICKTHROUGH_EVENTS);
+						}
+						overlayView.hide();
+
+						dispatchEvent(event);
 					}
 					else {
-						CONFIG::debugging { doLog("No action taken on non-linear click - no click-through specified", Debuggable.DEBUG_CLICKTHROUGH_EVENTS); }
+						if (nonLinearVideoAd.hasClickThroughs() && (nonLinearVideoAd.isInteractive() == false)) {
+							var clickThroughURL:String = nonLinearVideoAd.firstClickThrough();
+							CONFIG::debugging {
+								doLog("Non-linear click is triggering a click-through to " + clickThroughURL, Debuggable.DEBUG_CLICKTHROUGH_EVENTS);
+							}
+							PopupWindow.openWindow(clickThroughURL, _config.adsConfig.clickSignConfig.target);
+						}
+						else {
+							CONFIG::debugging {
+								doLog("No action taken on non-linear click - no click-through specified", Debuggable.DEBUG_CLICKTHROUGH_EVENTS);
+							}
+						}
+						dispatchEvent(event);
 					}
-					dispatchEvent(event);
-				}			
-				CONFIG::callbacks {
-					fireAPICall("onNonLinearAdClicked", adSlot.videoAd.toJSObject());
-				}
-				if(_analyticsProcessor != null) {
-					_analyticsProcessor.fireAdClickTracking(AnalyticsProcessor.NON_LINEAR, adSlot, nonLinearVideoAd, getAdditionalMetricsParams());
+					CONFIG::callbacks {
+						fireAPICall("onNonLinearAdClicked", adSlot.videoAd.toJSObject());
+					}
+					if (_analyticsProcessor != null) {
+						_analyticsProcessor.fireAdClickTracking(AnalyticsProcessor.NON_LINEAR, adSlot, nonLinearVideoAd, getAdditionalMetricsParams());
+					}
 				}
 			}
 		}
