@@ -549,7 +549,9 @@ package org.openvideoads.vast.model {
 							environmentVars = "referrer=" + referrer;
 							CONFIG::debugging { doLog("Passing in the referrer automatically as '" + referrer + "' to the VPAID ad via the environmentVars", Debuggable.DEBUG_VPAID); }
 						}
-						catch(e:Error) { };
+						catch(e:Error) {
+							CONFIG::debugging { doLog("VPAIDMediaFile::startVPAID Exception Occured", Debuggable.DEBUG_VPAID); }
+						}
 					}
 				}
 				CONFIG::debugging { doLog("Initialising the VPAID ad with width:" + Math.floor(width) + ", height:" + Math.floor(height) + ", mode:" + mode + ", bitrate:400, parameters:" + adParameters + ", environment vars:" + environmentVars, Debuggable.DEBUG_VPAID); }
@@ -784,6 +786,7 @@ package org.openvideoads.vast.model {
 				}
 			}
 			catch(e:Error) {
+				CONFIG::debugging { doLog("VPAIDMediaFile::VPAID.AdClickThru Exception Occured", Debuggable.DEBUG_VPAID); }
 			}
 			triggerClickTracking();
 			fireExternalAPICall(VPAIDEvent.AdClickThru);
