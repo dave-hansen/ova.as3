@@ -24,10 +24,7 @@ package org.openvideoads.vast.analytics {
 	import org.openvideoads.vast.server.request.AdServerRequest;
 	
 	public class AnalyticsProcessor extends Debuggable implements AnalyticsInterface {
-		CONFIG::ga { 
-			protected var _gaProcessor:GoogleAnalyticsProcessor = null; 
-		}
-		
+
 		protected var _vastController:VASTController = null;
 
 		public static const IMPRESSIONS:String = "impressions";
@@ -98,90 +95,30 @@ package org.openvideoads.vast.analytics {
 		}
 		
 		public function initialise(config:AnalyticsConfigGroup):void {
-			if(config != null) {
-				if(config.googleEnabled()) {
-				 	CONFIG::debugging { doLog("Google Analytics Processor started", Debuggable.DEBUG_CONFIG); }
-					CONFIG::ga { _gaProcessor = new GoogleAnalyticsProcessor(config.google); }
-				}
-				else {
-				 	CONFIG::debugging { doLog("Google Analytics Processor has been disabled", Debuggable.DEBUG_CONFIG); }
-				 	CONFIG::ga { _gaProcessor = null; }
-				}				
-			}
 		}
 
 		public function fireAdCallTracking(type:String, adRequest:AdServerRequest, wrapped:Boolean=false, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing ad call analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-
-		 	/* Leaving as comments to show how to grab out the raw VAST response string from the ad request
-			 	if(type == COMPLETE) {
-					doLog(">>> " + adRequest.template.getRawTemplateData(), Debuggable.DEBUG_ALWAYS);		 
-			 	}
-		 	*/
-
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireAdCallTracking(type, adRequest, wrapped, additionalParams);
-			}
 		}
 		
         public function fireTemplateLoadTracking(type:String, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing template load analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireTemplateLoadTracking(type, additionalParams);
-			}
         }
 
         public function fireAdSchedulingTracking(type:String, adSlot:AdSlot, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing ad scheduling analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireAdSchedulingTracking(type, additionalParams);
-			}
         }
 
         public function fireAdSlotTracking(type:String, adSlot:AdSlot, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing ad slot analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireAdSlotTracking(type, adSlot, additionalParams);
-			}
         }
         
 		public function fireImpressionTracking(type:String, adSlot:AdSlot, ad:*, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing impression analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireImpressionTracking(type, adSlot, ad, additionalParams);
-			}
-
-			/* Some example code to illustrate how to pull out the index of the last executed ad tag in a failover block
-  			   if(_vastController.adSchedule.loadingOnDemand()) {
-				   // It was a "load on demand" set of ad tags
-				   doLog(">> INDEX OF LAST (ON-DEMAND) AD TAG CALLED FOR AD SLOT '" + adSlot.key + "' IS " + adSlot.getLastProcessedOnDemandAdTagIndex(), Debuggable.DEBUG_ALWAYS);
-			   }
-			   else {
-				   // It was a "pre-loaded" set of ad tags
-				   doLog(">> INDEX OF LAST (PRE-LOADED) AD TAG CALLED FOR AD SLOT '" + adSlot.key + "' IS " + adSlot.getLastProcessedPreloadedAdTagIndex(), Debuggable.DEBUG_ALWAYS);
-			   }
-			*/
 		}
 		
         public function fireAdPlaybackTracking(type:String, adSlot:AdSlot, ad:*, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing ad playback analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireAdPlaybackTracking(type, adSlot, ad, additionalParams);
-			}
         }
 
         public function fireVPAIDPlaybackTracking(type:String, adSlot:AdSlot, ad:*, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing vpaid analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireVPAIDPlaybackTracking(type, adSlot, ad, additionalParams);
-			}
         }
         
         public function fireAdClickTracking(type:String, adSlot:AdSlot, ad:*, additionalParams:*=null):void {
-		 	CONFIG::debugging { doLog("Firing ad click analytics tracking " + type, Debuggable.DEBUG_ANALYTICS); }
-			CONFIG::ga { 
-				if(_gaProcessor != null) _gaProcessor.fireAdClickTracking(type, adSlot, ad, additionalParams);
-			}
         }
     }
 }
