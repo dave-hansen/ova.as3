@@ -45,7 +45,7 @@
 			<arg value="-strict=true" />
 			<arg value="-optimize=true" />
             <arg value="-define=CONFIG::debugging,true" />
-            <arg value="-define=CONFIG::ga,true" />
+            <arg value="-define=CONFIG::ga,false" />
             <arg value="-define=CONFIG::connectors,true" />
             <arg value="-define=CONFIG::callbacks,true" />
             <arg value="-define=CONFIG::buttons,true" />
@@ -67,7 +67,7 @@
 			<arg value="-strict=true" />
 			<arg value="-optimize=true" />
             <arg value="-define=CONFIG::debugging,false" />
-            <arg value="-define=CONFIG::ga,true" />
+            <arg value="-define=CONFIG::ga,false" />
             <arg value="-define=CONFIG::connectors,true" />
             <arg value="-define=CONFIG::callbacks,true" />
             <arg value="-define=CONFIG::buttons,true" />
