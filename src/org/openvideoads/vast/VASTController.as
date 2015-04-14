@@ -80,7 +80,7 @@ package org.openvideoads.vast {
 	public class VASTController extends EventController implements TemplateLoadListener, AdSlotOnDemandLoadListener, ConfigLoadListener {
 		public static const RELATIVE_TO_CLIP:String = "relative-to-clip";
 		public static const CONTINUOUS:String = "continuous";
-		public static const VERSION:String = "v1.3.0 RC1 (Build 37)";
+		public static const VERSION:String = "v1.3.1";
 		
 		public static const USE_EMBEDDED_JAVASCRIPT:Boolean = false;  // Temporary option to enable "experimental" embedded Javascript code
 		
