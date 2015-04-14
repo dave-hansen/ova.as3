@@ -32,12 +32,16 @@ package org.openvideoads.vast.events {
 		public static const LINEAR_IMPRESSION:String = "ova-vpaid-linear-impression";
 		public static const NON_LINEAR_IMPRESSION:String = "ova-vpaid-nl-impression";
 		public static const LINEAR_START:String = "ova-vpaid-linear-start";
+		public static const LINEAR_PAUSE:String = "ova-vpaid-linear-pause";
+		public static const LINEAR_PLAYING:String = "ova-vpaid-linear-playing";
 		public static const LINEAR_COMPLETE:String = "ova-vpaid-linear-complete";
 		public static const LINEAR_ERROR:String = "ova-vpaid-linear-error";
 		public static const LINEAR_LINEAR_CHANGE:String = "ova-vpaid-linear-linear-change";
 		public static const LINEAR_EXPANDED_CHANGE:String = "ova-vpaid-linear-expanded-change";
 		public static const LINEAR_TIME_CHANGE:String = "ova-vpaid-linear-time-change";
 		public static const NON_LINEAR_START:String = "ova-vpaid-nl-start";
+		public static const NON_LINEAR_PAUSE:String = "ova-vpaid-nl-pause";
+		public static const NON_LINEAR_PLAYING:String = "ova-vpaid-nl-playing";
 		public static const NON_LINEAR_COMPLETE:String = "ova-vpaid-nl-complete";
 		public static const NON_LINEAR_ERROR:String = "ova-vpaid-nl-error";
 		public static const NON_LINEAR_LINEAR_CHANGE:String = "ova-vpaid-nl-linear-change";

@@ -895,11 +895,13 @@ package org.openvideoads.vast {
 								if(_analyticsProcessor != null) {
 									_analyticsProcessor.fireVPAIDPlaybackTracking(AnalyticsProcessor.PAUSED, adSlot, ad, getAdditionalMetricsParams());
 								}
+								dispatchEvent(new VPAIDAdDisplayEvent(((adSlot.isLinear()) ? VPAIDAdDisplayEvent.LINEAR_PAUSE : VPAIDAdDisplayEvent.NON_LINEAR_PAUSE), adSlot, event.data, event.bubbles, event.cancelable));
 							},
 							onPlaying: function(event:VPAIDEvent=null):void {
 								if(_analyticsProcessor != null) {
 									_analyticsProcessor.fireVPAIDPlaybackTracking(AnalyticsProcessor.PLAYING, adSlot, ad, getAdditionalMetricsParams());
-								}								
+								}
+								dispatchEvent(new VPAIDAdDisplayEvent(((adSlot.isLinear()) ? VPAIDAdDisplayEvent.LINEAR_PLAYING : VPAIDAdDisplayEvent.NON_LINEAR_PLAYING), adSlot, event.data, event.bubbles, event.cancelable));
 							},
 							onError: function(event:VPAIDEvent=null):void { 
 								if(adSlot != null) {

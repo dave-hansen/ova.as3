@@ -1032,6 +1032,16 @@
 							if(eventCallbackFunctions.onSkipped != undefined) eventCallbackFunctions.onSkipped(event);
 						}
 				);
+				vpaidMedia.registerOnPausedHandler(
+						function(event:VPAIDEvent=null):void {
+							if(eventCallbackFunctions.onPaused != undefined) eventCallbackFunctions.onPaused(event);
+						}
+				);
+				vpaidMedia.registerOnPlayingHandler(
+						function(event:VPAIDEvent=null):void {
+							if(eventCallbackFunctions.onPlaying != undefined) eventCallbackFunctions.onPlaying(event);
+						}
+				);
 				vpaidMedia.registerAdSkippableStateChangeHandler(
 						function(event:VPAIDEvent=null):void {
 							if(eventCallbackFunctions.onSkippableStateChange != undefined) eventCallbackFunctions.onSkippableStateChange(event);

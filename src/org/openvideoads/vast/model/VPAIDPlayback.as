@@ -46,6 +46,8 @@ package org.openvideoads.vast.model {
 		function registerVideoThirdQuartileHandler(onVideoThirdQuartileHandler:Function):void;
 		function registerVideoCompleteHandler(onVideoCompleteHandler:Function):void;
 		function registerAdSkippedHandler(onAdSkippedHandler:Function):void;
+		function registerOnPausedHandler(onAdPauseHandler:Function):void;
+		function registerOnPlayingHandler(onAdPlayingHandler:Function):void;
 		function registerAdSizeChangeHandler(onAdSizeChangeHandler:Function):void;
 		function registerAdSkippableStateChangeHandler(onAdSkippableStateChangeHandler:Function):void;
 		function registerAdDurationChangeHandler(onAdDurationChangeHandler:Function):void;
