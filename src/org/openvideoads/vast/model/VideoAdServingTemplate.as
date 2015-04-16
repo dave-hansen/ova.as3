@@ -1003,7 +1003,7 @@ package org.openvideoads.vast.model {
 							if(nonLinearAdXML.@minSuggestedDuration != undefined) {
 								// check to see if this is a timestamp format, or just seconds
 								if(Timestamp.validate(nonLinearAdXML.@minSuggestedDuration)) {
-									nonLinearAd.recommendedMinDuration = Timestamp.timestampToSecondsString(nonLinearAdXML.@minSuggestedDuration);
+									nonLinearAd.recommendedMinDuration = Timestamp.timestampToSeconds(nonLinearAdXML.@minSuggestedDuration);
 									CONFIG::debugging { doLog("MinSuggestedDuration converted from '" + nonLinearAdXML.@minSuggestedDuration + "' to '" + nonLinearAd.recommendedMinDuration + "' seconds", Debuggable.DEBUG_VAST_TEMPLATE); }
 								}
 								else nonLinearAd.recommendedMinDuration = nonLinearAdXML.@minSuggestedDuration;
